@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="회원가입.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h3>회원 가입</h3>
+      <div class="head">
+        <table>
+          <tr>
+            <td>회원구분<b>*</b></td>
+            <td>
+              <input type="radio" checked />개인회원
+              <input type="radio" />외국인회원(foreigner)
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="info">
+        <div class="default">
+          <h3>기본정보</h3>
+          <p><b>*</b>필수입력사항</p>
+        </div>
+        <table>
+          <tr>
+            <td>아이디<b>*</b></td>
+            <td><input type="text" />(영문소문자/숫자, 4~16자)</td>
+          </tr>
+          <tr>
+            <td>비밀번호<b>*</b></td>
+            <td><input type="text" />(영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자~16자)</td>
+          </tr>
+          <tr>
+            <td>비밀번호 확인<b>*</b></td>
+            <td><input type="text" /></td>
+          </tr>
+          <tr>
+            <td>이름<b>*</b></td>
+            <td><input type="text" /></td>
+          </tr>
+          <tr class="address">
+            <td>주소</td>
+            <td>
+              <input type="text" class="addressNum"/>
+              <select>
+                <option>우편번호</option>
+              </select>
+              <br />
+              <input type="text" />기본주소
+              <br />
+              <input type="text" />나머지주소(선택입력가능)
+            </td>
+          </tr>
+          <tr class="tel">
+            <td>일반전화</td>
+            <td>
+              <select>
+                <option>02</option></select
+              > - <input type="text" /> -
+              <input type="text" />
+            </td>
+          </tr>
+          <tr class="tel">
+            <td>휴대전화<b>*</b></td>
+            <td>
+              <select>
+                <option>010</option></select
+              > - <input type="text" /> -
+              <input type="text" />
+            </td>
+          </tr>
+          <tr>
+            <td>SMS 수신여부<b>*</b></td>
+            <td>
+              <input type="checkbox" />동의함<br />
+              쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수 있습니다.
+            </td>
+          </tr>
+          <tr>
+            <td>이메일<b>*</b></td>
+            <td><input type="text" /></td>
+          </tr>
+          <tr>
+            <td>이메일 수신여부<b>*</b></td>
+            <td>
+              <input type="checkbox" />동의함<br />
+              쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수
+              있습니다.
+            </td>
+          </tr>
+          <tr>
+            <td>평생회원</td>
+            <td>
+              <input type="radio" />동의함
+              <input type="radio" checked />동의안함 <br />
+              - 평생회원으로 가입하시면 <b>스타일맨</b> 탈퇴시 까지는
+              휴면회원으로 전환되지 않으며, 고객님의 개인정보가 탈퇴시까지
+              안전하게 보관됩니다.<br />
+              - 지금 평생회원으로 가입하시면 쿠폰혜택을 드립니다. (쿠폰헤택을
+              받으신 경우, 3개월간 평생회원을 유지하셔야 합니다.)
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="subinfo">
+        <h3>추가정보</h3>
+        <table>
+          <tr class="birth">
+            <td>생년월일<b>*</b></td>
+            <td>
+              <input type="text" />년 <input type="text" />월
+              <input type="text" />일
+              <input name="birth" type="radio" checked />양력
+              <input name="birth" type="radio" />음력 (14세 미만 회원가입을
+              제한하고 있습니다.)
+            </td>
+          </tr>
+          <tr>
+            <td>성별</td>
+            <td>
+              <input name="gender" type="radio" />남자
+              <input name="gender" type="radio" />여자
+            </td>
+          </tr>
+          <tr>
+            <td>상의 사이즈</td>
+            <td>
+              <input type="checkbox" name="top_size" />90~95
+              <input type="checkbox" name="top_size" />100~105
+              <input type="checkbox" name="top_size" />110~115
+              <input type="checkbox" name="top_size" />120~125
+              <input type="checkbox" name="top_size" />130~
+            </td>
+          </tr>
+          <tr>
+            <td>하의 사이즈</td>
+            <td>
+              <input type="checkbox" name="bottom_size" />~30
+              <input type="checkbox" name="bottom_size" />32
+              <input type="checkbox" name="bottom_size" />33
+              <input type="checkbox" name="bottom_size" />34
+              <input type="checkbox" name="bottom_size" />35
+              <input type="checkbox" name="bottom_size" />36
+              <input type="checkbox" name="bottom_size" />37
+              <input type="checkbox" name="bottom_size" />38
+              <input type="checkbox" name="bottom_size" />39
+              <input type="checkbox" name="bottom_size" />40
+              <input type="checkbox" name="bottom_size" />42~
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+.item_insert_container{
+  width: 80%;
+}
+
+.item_insert_table{
+  width: 100%;
+  border: 1px solid black;
+}
+
+.item_insert_table td{
+  padding: 8px;
+}
+
+.btn_div{
+  text-align: right;
+  margin-top: 16px;
+}

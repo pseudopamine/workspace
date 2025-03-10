@@ -1,0 +1,36 @@
+/* 
+  position : absolute 속성을 사용하면 절대 위치를 지정할 수 있는데 기준은 body 태그이다.
+  body 태그가 기준이 아니라, 우리가 원하는 태그를 기준으로
+  잡고 싶을 때는 position : absolute 속성을 줄 태그의 부모에
+  position:relative를 준다.
+
+*/
+
+img{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid orange;
+
+  position: absolute;
+}
+
+.img_1{
+  left: 0px;
+  z-index: 3;
+}
+
+.img_2{
+  left: 100px;
+  z-index: 2;
+  top: 100px;
+}
+
+.img_3{
+  left: 200px;
+  z-index: 1;
+}
+
+.img-div{
+  position: relative;
+}

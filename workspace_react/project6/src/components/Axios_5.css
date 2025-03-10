@@ -1,0 +1,28 @@
+.t1{
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 1800px;
+  height: 800px;
+  margin: 0 auto;
+}
+
+.t1 tr, .t1 td{
+  border: 1px solid black;
+}
+
+.t1-tr > td{
+  text-align: center;
+  vertical-align: top;
+  padding: 16px;
+}
+
+.infoTable{
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 60%;
+  margin: auto;
+  margin-top: 16px;
+  
+}
+
+

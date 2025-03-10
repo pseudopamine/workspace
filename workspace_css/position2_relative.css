@@ -1,0 +1,29 @@
+div{
+  border: 1px solid black;
+  width: 500px;
+}
+
+.d1{
+  position: relative;
+  top: 10px;
+  left: 20px;
+  margin-bottom: 50px;
+}
+
+.d2{
+  position: absolute;
+  top: 0px;
+  right: 20px;
+}
+
+.d3{
+  height: 100px;
+  border: 1px solid blue;
+  position: relative;
+}
+
+.d4{
+  border: 1px solid red;
+  position: absolute;
+  bottom: 0px;
+}

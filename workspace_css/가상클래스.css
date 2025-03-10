@@ -1,0 +1,26 @@
+/* 
+  가상클래스 : 태그의 상태나 조건에 따라 디자인을 적용할 때 사용
+
+
+
+
+
+*/
+
+
+.d1{
+  background-color: aqua;
+}
+
+/* 클래스가 d1인 태그에 마우스 올릴때만 적용 */
+.d1:hover{
+  background-color: crimson;
+}
+
+ul > li:first-child{
+  color: red;
+}
+
+ul > li:nth-child(3){
+  color: blue;
+}

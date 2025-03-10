@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.example.react_shop.mapper.OrderMapper">
+
+    <resultMap id="order" type="OrderDTO">
+        <id     column="ORDER_NUM"  property="orderNum"/>
+        <result column="ITEM_NUM"   property="itemNum"/>
+        <result column="BUYER"      property="buyer"/>
+        <result column="BUY_CNT"    property="buyCnt"/>
+        <result column="BUY_PRICE"  property="buyPrice"/>
+        <result column="BUY_DATE"   property="buyDate"/>
+
+        <association property="itemList" javaType="ShopDTO">
+            <id     column="ITEM_NUM"   property="itemNum"/>
+            <result column="ITEM_NAME"  property="itemName"/>
+            <result column="ITEM_PRICE" property="itemPrice"/>
+            <result column="SELLER"     property="seller"/>
+            <result column="ITEM_INTRO" property="itemIntro"/>
+            <result column="REG_DATE"   property="regDate"/>
+        </association>
+    </resultMap>
+
+    <!--주문 등록 쿼리-->
+    <insert id="insertOrder">
+        INSERT INTO ORDER_INFO (
+            BUYER
+            , BUY_CNT
+            , ITEM_NUM
+            , BUY_PRICE
+        ) VALUES (
+            #{buyer}
+            , #{buyCnt}
+            , #{itemNum}
+            , #{price} * #{buyCnt}
+        )
+    </insert>
+
+    <!--주문 목록 조회 쿼리-->
+    <select id="selectOrderList" resultMap="order">
+        SELECT
+            ITEM_NAME
+            , ITEM_PRICE
+            , BUY_CNT
+            , BUY_PRICE
+            , BUYER
+            , BUY_DATE
+        FROM ITEM_INFO INNER JOIN ORDER_INFO
+        ON ITEM_INFO.ITEM_NUM = ORDER_INFO.ITEM_NUM
+    </select>
+
+
+
+
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

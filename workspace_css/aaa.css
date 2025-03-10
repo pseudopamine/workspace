@@ -1,0 +1,17 @@
+.container{
+  padding: 20px;
+  width: 70%;
+  margin: 30px auto;
+  border: 1px solid black;
+}
+.left{
+  border: 1px solid red;
+  display: inline-block;
+  width: 50%;
+  margin-right: -4px;
+}
+.right{
+  border: 1px solid blue;
+  display: inline-block;
+  width: 50%;
+}

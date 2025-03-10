@@ -1,0 +1,34 @@
+/* 
+  position : relative : 상대적인 위치
+*/
+
+div{
+  width: 300px;
+  height: 300px;
+  font-size: 2rem;
+  text-align: center;
+  line-height: 300px;
+  border: 1px solid black;
+}
+
+.d1{
+  background-color: coral;
+}
+
+.d2{
+  background-color: azure;
+}
+
+.d3{
+  background-color: bisque;
+}
+
+/* d2클래스에 마우스 올리면~ */
+.d2:hover{
+  background-color: blueviolet;
+
+  position: relative;
+  top: 20px;
+  left: 20px;
+
+}

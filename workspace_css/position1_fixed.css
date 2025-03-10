@@ -1,0 +1,30 @@
+/* 
+  position : 태그의 배치를 변경할 때 사용
+  1. static : position 속성을 사용하지 않을 때 기본값 
+  2. fixed : 특정 위치에 태그 고정.화면 좌상단 기준. 스크롤해도 따라다님
+  3. absolute : 특정 위치에 태그 고정.화면 좌상단 기준. 스크롤 안 따라다님
+  4. relative : static 위치를 기준으로 상대적으로 배치
+
+  5. relative + absolute : absolute 속성을 부여하면 태그의 위치는 화면 좌상단을 기준으로 하지만, absolute 속성이 부여된 태그의 부모태그의 relative 속성을 부여하면 absolute속성은 부모태그 위치를 기준으로 움직인다. 
+
+  position 속성은 반드시 top, left, right, bottom 속성과 함께 사용
+  ex) top : 10px  -> 위에서부터 10px 떨어지겠다.
+      right : 20px  -> 오른쪽에서 20px 떨어지겠다.
+*/
+
+
+
+.d1{
+  font-size: 3rem;
+  line-height: 100px;
+}
+
+
+.d2{
+  border: 1px solid black;
+  width: 100px;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+}
+

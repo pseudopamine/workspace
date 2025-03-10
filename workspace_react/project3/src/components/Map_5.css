@@ -1,0 +1,17 @@
+.head{
+  width: 200px;
+  height: 50px;
+  line-height: 50px;
+  background-color: lightgray;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.body{
+  width: 200px;
+  height: 20px;
+  line-height: 20px;
+  background-color: lightblue;
+  text-align: center;
+  border: 1px solid black;
+}

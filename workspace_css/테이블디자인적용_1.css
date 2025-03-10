@@ -1,0 +1,44 @@
+table{
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 900px;
+  /* auto : 좌우 마진 동일하게 맞춤 */
+  margin: 20px auto;
+}
+
+/* tr태그, td 태그에 모두 적용 */
+tr, td{
+  border: 1px solid black;
+}
+
+td{
+  padding: 4px;
+}
+
+.title-tr{
+  background-color: aqua;
+  text-align: center;
+}
+
+.b-span{
+  font-weight: bold;
+}
+
+.red-span{
+  color: red;
+  font-style: italic;
+  font-size: 0.8rem;
+}
+
+.btn-div{
+  text-align: center;
+}
+
+.birth{
+  width: 60px;
+}
+
+tr > td:first-child{
+  text-align: center;
+}
+

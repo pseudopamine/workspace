@@ -1,0 +1,167 @@
+.container{
+  width: 1200px;
+  margin: 0px auto;
+}
+
+.container > div{
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  background-color: #0c51a6;
+  color: white;
+}
+
+.header > h1{
+  margin-left: 30px;
+}
+
+.header > ul{
+  display: flex;
+  background-color: #0a4288;
+  width: 600px;
+  justify-content: space-around;
+  padding: 16px 0px;
+}
+
+.header a{
+  color: white;
+  text-decoration: none;
+}
+
+.banner{
+  position: relative;
+}
+
+.banner > img{
+  width: 100%;
+  height: 100%;
+}
+
+img{
+  display: block;
+}
+
+.banner > div{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.banner > div > div{
+  background-color: rgb(0, 0, 0, 0.4);
+  width: 500px;
+  text-align: center;
+  color: white;
+  padding: 16px;
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  
+}
+
+.banner > div > div > p:first-child{
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.content{
+  display: flex;
+}
+
+.content > div{
+  /* flex-grow: 1; */
+  width: 33%;
+}
+
+.content img{
+  width: 100%;
+  height: 100%;
+}
+
+.banner1{
+  position: relative;
+}
+
+.reserve{
+  text-align: center;
+  width: 80%;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.reserve > button{
+  background-color: rgb(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 16px;
+  margin-top: 10px;
+}
+
+.reserve > button:hover{
+  background-color: black;
+  cursor: pointer;
+}
+
+.board{
+  padding: 10px;
+  background-color: #e5f1ff;
+}
+
+.board > h2{
+  margin-bottom: 12px;
+}
+
+.board a{
+  color: black;
+  text-decoration: none;
+}
+
+.board li{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.footer{
+  display: flex;
+  padding: 30px;
+  background-color: #eeeeee;
+}
+
+.footer > h1{
+  width: 40%;
+  color: gray;
+}
+
+.footer > div{
+  width: 50%;
+}
+
+.footer-menu{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.footer-menu a{
+  color: black;
+  text-decoration: none;
+}
+
+.footer p{
+  text-align: center;
+  margin-top: 6px;
+}

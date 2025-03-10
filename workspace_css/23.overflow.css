@@ -1,0 +1,26 @@
+/* 
+  overflow는 영역에 비해 컨텐츠의 양이 넘칠 때
+  어떻게 컨트롤할지 설정하는 속성
+*/
+
+.box{
+  width: 300px;
+  height: 150px;
+  border: 1px solid black;
+  margin: 70px;
+  overflow: visible;
+}
+
+.d2{
+  overflow: hidden;
+}
+
+/* 공간이 충분해도 scroll 생성 */
+.d3{
+  overflow: scroll;
+}
+
+/* 공간이 부족할 때 만 scroll 생성 */
+.d4{
+  overflow: auto;
+}

@@ -1,0 +1,91 @@
+body{
+  background-color: skyblue;
+}
+
+.container{
+  background-color: white;
+  width: 500px;
+  margin: 30px auto;
+  border-radius: 8px;
+  padding: 40px;
+  /* 그림자 */
+  box-shadow: 2px 2px 3px gray;
+}
+
+.title-p{
+  margin-bottom: 20px;
+}
+
+.imfor-div > div{
+  /* border: 1px solid black; */
+  margin-bottom: 8px;
+}
+
+.imfor-div p{
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.red{
+  color: red;
+}
+
+input{
+  padding: 8px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  width: 100%;
+}
+
+.imfor-div > div:first-child > input{
+  width: 70%;
+}
+
+.btn{
+  padding: 7px 16px;
+  font-size: 0.7rem;
+  width: 29%;
+  background-color: skyblue;
+  color: white;
+  border: none;
+  border-radius: 3px;
+}
+
+.small{
+  padding: 5px 12px;
+  box-shadow: 1px 1px 3px gray;
+  width: 20%;
+}
+
+.yellow{
+  background-color: yellowgreen;
+}
+
+.first-addr{
+  margin-bottom: 4px;
+}
+
+.email-div input, .email-div select{
+  width: 31.2%;
+}
+
+select{
+  padding: 7.5px 6px;
+  font-size: 0.7rem;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+}
+
+.birth-div select{
+  width: 32.7%;
+}
+
+.btn-div{
+  text-align: center;
+  margin-top: 16px;
+}
+
+.btn-div button{
+  margin: 0px 6px;
+}

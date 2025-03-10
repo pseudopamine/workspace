@@ -1,0 +1,17 @@
+.container{
+  width: 500px;
+  margin: 0 auto;
+}
+
+table, tr, td{
+  border: 1px solid black;
+}
+
+table{
+  width: 800px;
+  text-align: center;
+}
+
+.bottom{
+  margin-top: 60px;
+}

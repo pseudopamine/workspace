@@ -1,0 +1,59 @@
+.container{
+  width: 60%;
+  margin: 0 auto;
+}
+
+.orderList{
+  text-align: center;
+}
+
+.orderList-table{
+  border: 1px solid #dddddd;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.orderList-table tr, .orderList-table td{
+  border: 1px solid #dddddd;
+}
+
+.orderList-table td{
+  padding: 6px;
+}
+
+.orderDetail{
+  text-align: center;
+}
+
+.orderDetail-table{
+  border: 1px solid #dddddd;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.orderDetail-table tr, .orderDetail-table td{
+  border: 1px solid #dddddd;
+}
+
+.orderDetail-table td{
+  padding: 6px;
+}
+
+.orderList-table-body tr:hover{
+  cursor: pointer;
+}
+
+thead tr{
+  background-color: #eeeeee;
+}
+
+thead td{
+  font-weight: 600;
+}
+
+.orderDetail-table-td{
+  background-color: #eeeeee;
+  font-weight: 600;
+}

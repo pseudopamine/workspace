@@ -1,0 +1,25 @@
+.header{
+  background-color: black;
+  color: white;
+  height: 120px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header > div{
+  /* border: 1px solid yellow; */
+  width: 30%;
+  margin: 0px 20px;
+}
+
+ul{
+  display: flex;
+  /* border: 1px solid red; */
+  justify-content: space-between;
+}
+
+li{
+  /* border: 1px solid blue; */
+}

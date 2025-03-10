@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.example.react_shop.mapper.ShopMapper">
+
+    <!--상품 등록 쿼리-->
+    <insert id="insertItem">
+        INSERT INTO ITEM_INFO (
+        ITEM_NAME
+        , ITEM_PRICE
+        , SELLER
+        , ITEM_INTRO
+        ) VALUES (
+        #{itemName}
+        , #{itemPrice}
+        , #{seller}
+        , #{itemIntro}
+        )
+    </insert>
+
+    <!--모든 상품 조회 쿼리-->
+    <select id="selectItemList" resultType="ShopDTO">
+        SELECT
+            ITEM_NUM
+            , ITEM_NAME
+            , ITEM_PRICE
+            , SELLER
+        FROM ITEM_INFO
+    </select>
+
+    <!--특정 상품 목록 상세 조회 쿼리-->
+    <select id="selectItem" resultType="ShopDTO">
+        SELECT
+            ITEM_NUM
+            , ITEM_NAME
+            , ITEM_PRICE
+            , SELLER
+            , ITEM_INTRO
+            , REG_DATE
+        FROM ITEM_INFO
+        WHERE ITEM_NUM = #{itemNum}
+    </select>
+
+    <!--특정 상품 수정 쿼리-->
+    <insert id="updateItem">
+        UPDATE ITEM_INFO
+        SET
+            ITEM_NAME = #{itemName}
+            , ITEM_PRICE = #{itemPrice}
+            , ITEM_INTRO = #{itemIntro}
+        WHERE ITEM_NUM = #{itemNum}
+    </insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

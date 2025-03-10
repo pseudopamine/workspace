@@ -1,0 +1,11 @@
+
+
+table, tr, td{
+  border: 1px solid black;
+  width: 300px;
+  text-align: center;
+}
+
+thead{
+  background-color: lightgrey;
+}

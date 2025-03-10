@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="css_회원가입.css">
+</head>
+<body>
+  <div class="container">
+    <h2>회원가입</h2>
+    <p class="title-p">회원이 되어 다양한 혜택을 경험해 보세요!</p>
+    
+    <!-- 정보 입력 영역 -->
+    <div class="imfor-div">
+      <div>
+        <p>아이디<span class="red">*</span></p>
+        <input type="text" placeholder="아이디 입력(6~20자)">
+        <button type="button" class="btn">중복 확인</button>
+      </div>
+      <div>
+        <p>비밀번호<span class="red">*</span></p>
+        <input type="password" placeholder="비밀번호 입력(8~20자)">
+      </div>
+      <div>
+        <p>비밀번호 확인<span class="red">*</span></p>
+        <input type="password" placeholder="비밀번호 재입력">
+      </div>
+      <div>
+        <p>이름<span class="red">*</span></p>
+        <input type="text" placeholder="이름을 입력해주세요">
+      </div>
+      <div>
+        <p>주소<span class="red">*</span></p>
+        <input type="text" placeholder="주소를 입력해주세요" class="first-addr">
+        <input type="text" placeholder="상세주소">
+      </div>
+      <div>
+        <p>전화번호<span class="red">*</span></p>
+        <input type="text" placeholder="휴대폰 번호 입력">
+      </div>
+      <div class="email-div">
+        <p>이메일 주소<span class="red">*</span></p>
+        <input type="text"> @ 
+        <input type="text">
+        <select>
+          <option>선택</option>
+        </select>
+      </div>
+      <div class="birth-div">
+        <p>생년월일</p>
+        <select>
+          <option>년도</option>
+        </select>
+        <select>
+          <option>월</option>
+        </select>
+        <select>
+          <option>일</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 버튼 영역 -->
+    <div class="btn-div">
+      <button type="button" class="btn small">가입완료</button>
+      <button type="button" class="btn small yellow">가입취소</button>
+    </div>
+  </div>
+</body>
+</html>
+
+
+
+
+

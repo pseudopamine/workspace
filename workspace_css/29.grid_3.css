@@ -1,0 +1,42 @@
+.container{
+  width: 600px;
+  height: 400px;
+  margin: 20px auto;
+  border: 1px solid black;
+
+  display: grid;
+  grid-template-areas: 
+  "a a b"
+  "c d d"
+  "c e f"
+  ;
+
+}
+
+.container > div{
+  border: 1px solid red;
+}
+
+.container > div:nth-child(1){
+  grid-area: a;
+}
+
+.container > div:nth-child(2){
+  grid-area: b;
+}
+
+.container > div:nth-child(3){
+  grid-area: c;
+}
+
+.container > div:nth-child(4){
+  grid-area: d;
+}
+
+.container > div:nth-child(5){
+  grid-area: e;
+}
+
+.container > div:nth-child(6){
+  grid-area: f;
+}

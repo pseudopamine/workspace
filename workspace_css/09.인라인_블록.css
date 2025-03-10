@@ -1,0 +1,28 @@
+body{
+  background-color: bisque;
+}
+
+.aaa{
+  border: 1px solid black;
+  width: 500px;
+}
+
+.bbb{
+  border: 1px solid black;
+  width: 500px;
+}
+
+.ccc{
+  width: 300px;
+  border: 1px solid red;
+  /* 인라인으로 변경 */
+  display: inline;
+}
+
+.ddd{
+  border: 1px solid blue;
+  width: 300px;
+  /* 블록으로 변경 */
+  display: block;
+}
+

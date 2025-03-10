@@ -1,0 +1,25 @@
+.d1{
+  border: 1px solid black;
+  /* padding: 30px; */
+  /* 상하 20px, 좌우 50px */
+  /* padding: 20px 50px; */
+  /* 12시 방향부터 시계방향 */
+  padding: 10px 20px 30px 40px;
+
+  margin: 0px 0px 30px 20px;
+}
+
+.d2{
+  border: 3px dotted black;
+  width: 300px;
+  padding: 0px 10px;
+  /* 박스의 크기 기준을 내용박스로 기준 */
+  /* 박스의 크기 기준을 테두리 박스로 잡는다 */
+  box-sizing: border-box;
+}
+
+.d3{
+  border: 3px solid red;
+  height: 80px;
+  width: 300px;
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="mapper">
+    <!--select 태그는 반드시 resultType 속성을 가져야한다.-->
+    <!--select를 제외한 태그(insert, update, delete)에는 resultType 사용 안 함-->
+    <!--resultType은 '결과 자료형'이라는 의미-->
+    <!--resultType에는 쿼리 결과 조회되는 데이터를 자바의 어떤 자료형에 담을지 결정-->
+
+    <!--글번호가 1번인 게시글의 조회수를 조회-->
+    <select id="selectReadCnt" resultType="int">
+        SELECT READ_CNT
+        FROM BASIC_BOARD
+        WHERE BOARD_NUM = #{boardNum}
+    </select>
+
+
+    <select id="getTitles" resultType="String">
+        SELECT TITLE
+        FROM BASIC_BOARD
+        WHERE READ_CNT > #{readCnt}
+    </select>
+
+
+    <select id="selectBoardTitle" resultType="String">
+        SELECT TITLE
+        FROM BASIC_BOARD
+        WHERE BOARD_NUM = 1
+    </select>
+
+    <select id="a" resultType="int">
+        SELECT READ_CNT
+        FROM BASIC_BOARD
+    </select>
+
+    <select id="b" resultType="String">
+        SELECT WRITER
+        FROM BASIC_BOARD
+        WHERE TITLE = #{title}
+    </select>
+
+    <select id="d" resultType="String">
+        SELECT TITLE
+        FROM BASIC_BOARD
+        WHERE READ_CNT = #{readCnt}
+        AND WRITER = #{writer}
+    </select>
+
+
+
+    <!--우리가 만든 자료형을 resultType에 작성할 때 원래는 패키지명까지 작성해야 함!!-->
+    <!-- application.properties 설정 파일에 mybatis.type-aliases-package= 뒤에 패키지명을 미리 작성해두면 클래스명만 사용 가능-->
+    <select id="c" resultType="BoardDTO">
+        SELECT *
+        FROM BASIC_BOARD
+        WHERE BOARD_NUM = 1
+    </select>
+
+
+    <!--모든 게시글의 정보를 조회하는 쿼리-->
+    <select id="selectBoardList">
+        SELECT *
+        FROM BASIC_BOARD
+        ORDER BY CREATE_DATE DESC
+    </select>
+
+
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

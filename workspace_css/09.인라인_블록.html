@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="09.인라인_블록.css">
+</head>
+<body>
+  <h2>블록요소와 인라인요소</h2>
+
+  <!-- 블록 요소 -->
+  <!-- 
+    1. 부모 태그의 크기만큼 영역이 잡힘
+    2. 너비를 변경할 수 있음
+    3. 너비를 변경해도 다른 태그가 같은 라인에 올 수 없음
+  -->
+  <div class="aaa">hello~</div>
+  <div class="aaa">hello~</div>
+
+  <hr>
+
+  <!-- 인라인 태그 -->
+  <!-- 
+    1. 내용만큼의 크기로 영역이 잡힌다.
+    2. 크기 변경 불가
+    3. 한 줄에 여러 태그 작성 가능
+  -->
+  <span class="bbb">hello~</span>
+  <span class="bbb">hello~</span>
+
+  <hr>
+
+  <!-- 블록 -> 인라인, 인라인 -> 블록 -->
+  <div class="ccc">html</div> 
+  <div class="ccc">html</div> 
+
+  <hr>
+
+  <span class="ddd">HTML</span>
+  <span class="ddd">HTML</span>
+
+</body>
+</html>

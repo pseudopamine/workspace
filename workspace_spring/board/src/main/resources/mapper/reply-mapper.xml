@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.board.mapper.ReplyMapper">
+
+    <!--댓글 조회 목록-->
+    <select id="selectReplyList" resultType="ReplyDTO">
+        SELECT *
+        FROM BOARD_REPLY
+        WHERE BOARD_NUM = #{boardNum}
+        ORDER BY REG_DATE DESC
+    </select>
+
+    <!--댓글 입력 쿼리-->
+    <insert id="insertReply">
+        INSERT INTO BOARD_REPLY (
+            WRITER
+            , CONTENT
+            , BOARD_NUM
+        ) VALUES (
+            #{writer}
+            , #{content}
+            , #{boardNum}
+        )
+    </insert>
+
+    <!--댓글 삭제 쿼리-->
+    <delete id="deleteReply">
+        DELETE FROM BOARD_REPLY
+        WHERE REPLY_NUM = #{replyNum}
+    </delete>
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

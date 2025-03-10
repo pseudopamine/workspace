@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.example.react_shop.mapper.TestMapper">
+
+    <!--
+        <resultMap> 태그는 조회 결과 데이터를 자바로 가져올 자료형을 직접 커스터마이징하는 기능
+        JOIN 할 때에는 필요한 작업
+        result 태그의 coloumn에는 DB에서 조회되는 컬럼명을 작성
+        result 태드의 property에는 조회되는 컬럼의 값을 자바로 가져올 변수명 작성
+        resultMap 태그의 type에는 변수들이 선언된 dto 클래스를 작성(패키지명 포함)
+        PK 컬럼은 id column으로 변경
+
+    -->
+    <resultMap id="emp" type="EmpDTO">
+        <id     column="EMPNO"      property="empno"/>
+        <result column="ENAME"      property="ename"/>
+        <result column="JOB"        property="job"/>
+        <result column="MGR"        property="mgr"/>
+        <result column="HIREDATE"   property="hiredate"/>
+        <result column="SAL"        property="sal"/>
+        <result column="COMM"       property="comm"/>
+        <result column="DEPTNO"     property="deptno"/>
+
+        <!--association : 1:1 관계일 때 사용하는 태그-->
+        <association property="deptDTO" javaType="DeptDTO">
+            <id     column="DEPTNO" property="deptno"/>
+            <result column="DNAME"  property="dname"/>
+            <result column="LOC"    property="loc"/>
+        </association>
+    </resultMap>
+
+    <!--
+        select 태그는 조회한 결과 한 행의 데이터를 자바로 가져오는 방식을 지정해줘야 함
+        그 방식은 resultType을 사용하는 방법, resultMap을 사용하는 방법이 있음
+        단, resultMap은 JOIN 결과를 가져올 때 용이한 방법
+
+        resultType 방식 : 상대적으로 코드량이 적다(간편하다), JOIN 불가능
+        resultMap 방식 : 상대적으로 코드량이 많음(resultMap 작성), JOIN 가능
+
+
+    -->
+
+    <select id="getEmpList" resultMap="emp">
+        SELECT EMPNO, ENAME, SAL, EMP.DEPTNO, DNAME, LOC
+        FROM emp INNER JOIN DEPT
+        ON emp.DEPTNO = dept.DEPTNO;
+    </select>
+
+
+    <!--
+           <resultMap> 태그는 조회 결과 데이터를 자바로 가져올 자료형을 직접 커스터마이징하는 기능
+           (JOIN 할 때에는 필요한 작업)
+           result 태그의 coloumn에는 DB에서 조회되는 컬럼명을 작성
+           result 태드의 property에는 조회되는 컬럼의 값을 자바로 가져올 변수명 작성
+           resultMap 태그의 type에는 변수들이 선언된 dto 클래스를 작성(패키지명 포함)
+           PK 컬럼은 id column으로 변경
+
+       -->
+    <resultMap id="board" type="BoardDTO">
+        <id column="BOARD_NUM"  property="boardNum"/>
+        <result column="TITLE"      property="title"/>
+        <result column="WRITER"     property="writer"/>
+        <result column="CONTENT"    property="content"/>
+        <result column="READ_CNT"   property="readCnt"/>
+        <result column="REG_DATE"   property="regDate"/>
+
+        <!--collection : 1:N 관계일 때 사용하는 태그-->
+        <collection property="replyList" ofType="ReplyDTO">
+            <id     column="REPLY_NUM"          property="replyNum"/>
+            <result column="REPLY_CONTENT"      property="replyContent"/>
+            <result column="REPLY_WRITER"       property="replyWriter"/>
+            <result column="REPLY_REG_DATE"     property="replyRegDate"/>
+            <result column="BOARD_NUM"          property="boardNum"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="joinList" resultMap="board">
+        SELECT
+            BOARD.BOARD_NUM
+            , TITLE
+            , WRITER
+            , REPLY_CONTENT
+            , REPLY_WRITER
+        FROM board INNER JOIN board_reply
+        ON board.BOARD_NUM = board_reply.BOARD_NUM;
+    </select>
+
+
+
+    <select id="getBoardList" resultMap="board">
+        SELECT *
+        FROM BOARD
+    </select>
+
+    <select id="getBoard" resultMap="board">
+        SELECT BOARD_NUM, TITLE, WRITER
+        FROM BOARD
+        WHERE BOARD_NUM - #{boardNum}
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+.orderList_container{
+
+}
+
+.orderList_table{
+  width: 100%;
+  border: 1px solid #cccccc;
+}
+
+.orderList_table tr, .orderList_table td{
+  border: 1px solid #cccccc;
+}
+
+.orderList_table td{
+  padding: 6px;
+}

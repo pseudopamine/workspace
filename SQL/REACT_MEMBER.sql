@@ -1,0 +1,35 @@
+
+# 회원 테이블
+CREATE TABLE REACT_MEMBER (
+	MEM_ID VARCHAR(10) PRIMARY KEY
+	, MEM_NAME VARCHAR(10) NOT NULL
+	, MEM_PW VARCHAR(10) NOT NULL
+	, MEM_TEL VARCHAR(15) UNIQUE
+	, MEM_INTRO VARCHAR(30)
+	, JOIN_DATE DATETIME DEFAULT SYSDATE()
+);
+
+INSERT INTO REACT_MEMBER 
+VALUES ('java', '김자바', '1111', '010-1111-1111', '안녕하세요', NOW());
+
+INSERT INTO REACT_MEMBER 
+VALUES ('react', '박리액트', '2222', '010-2222-2222', '안녕하세요', NOW());
+
+INSERT INTO REACT_MEMBER 
+VALUES ('spring', '최스프', '7431', '010-8522-1258', '안녕하세요', NOW());
+
+INSERT INTO REACT_MEMBER 
+VALUES ('maria', '강마리', '3944', '010-3732-7855', '안녕하세요', NOW());
+
+COMMIT;
+
+SELECT
+            MEM_ID
+            , MEM_NAME
+            , MEM_TEL
+            , JOIN_DATE
+        FROM REACT_MEMBER;
+
+
+SELECT * FROM react_member;
+

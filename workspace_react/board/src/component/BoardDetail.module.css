@@ -1,0 +1,78 @@
+.detail_container{
+  
+}
+
+.detail_table{
+  border: 1px solid #cccccc;
+  text-align: center;
+  width: 100%;
+}
+
+.detail_table tr, .detail_table td{
+  border: 1px solid #cccccc;
+}
+
+.detail_table td{
+  padding: 8px;
+}
+
+.letf_text{
+  text-align: left;
+}
+
+.detail_table tr > td:nth-child(odd){
+  background-color: #eeeeee;
+}
+
+.btn_div{
+  text-align: center;
+  margin: 12px 0px;
+
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.reg_reply_div{
+  display: flex;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.reg_reply_div > input:nth-child(1){
+  width: 15%;
+}
+
+.reg_reply_div > input:nth-child(2){
+  width: 70%;
+}
+
+.reg_reply_div > button{
+  width: 15%;
+}
+
+.reply{
+  border-bottom: 1px solid #dddddd;
+  margin-top: 10px;
+}
+
+.reply > div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 4px;
+}
+
+.reply > div > p{
+  width: 85%;
+}
+
+.reply > div > button{
+  width: 15%;
+}
+
+.reply > span:nth-child(2){
+  margin-left: 20px;
+  color: #bbbbbb;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,48 @@
+.item_list_container{
+  border: 1px solid black;
+  display: flex;
+  gap: 2rem;
+}
+
+.list_div{
+  border: 1px solid red;
+  width: 50%;
+}
+
+.detail_div{
+  border: 1px solid red;
+  width: 50%;
+}
+
+.list_table{
+  width: 100%;
+  text-align: center;
+}
+
+.list_table thead tr{
+  border-top: 1.5px solid #424874;
+  border-bottom: 1px solid #424874;
+  background-color: #A6B1E1;
+  color: white;
+}
+
+.list_table tbody tr{
+  border-bottom: 1px solid #cccccc;
+}
+
+.list_table td{
+  padding: 6px;
+}
+
+.list_table tbody tr:nth-child(even){
+  background-color: #F4EEFF;
+}
+
+.list_table tbody tr:hover{
+  background-color: #eeeeee;
+}
+
+.list_table tbody tr td:nth-child(2):hover{
+  cursor: pointer;
+}
+

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.basic_board.mapper.BoardMapper">
+    <!--모든 게시글의 정보를 조회하는 쿼리-->
+    <select id="selectBoardList" resultType="BoardDTO">
+        SELECT *
+        FROM BASIC_BOARD
+        ORDER BY CREATE_DATE DESC
+    </select>
+
+    <!--게시글 하나의 모든 정보를 조회하는 쿼리-->
+    <select id="getBoard" resultType="BoardDTO">
+        SELECT *
+        FROM BASIC_BOARD
+        WHERE BOARD_NUM = #{boardNum}
+    </select>
+
+    <!--게시글 등록 쿼리-->
+    <insert id="insertBoard">
+        INSERT INTO BASIC_BOARD (
+        TITLE
+        , WRITER
+        , CONTENT
+    ) VALUES (
+        #{title}
+        , #{writer}
+        , #{content}
+    )
+    </insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

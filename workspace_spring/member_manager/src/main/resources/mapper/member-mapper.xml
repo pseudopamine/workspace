@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 해당 파일에 모든 쿼리문을 작성 -->
+<!-- namespace에는 xml파일과 연결할 Mapper interface 파일명을 패키지를 포함하여 적어주세요 -->
+<mapper namespace="com.green.member_manager.mapper.MemMapper">
+
+    <!--모든 회원 정보 조회-->
+    <select id="selectMemberList" resultType="MemDTO">
+        SELECT
+            MEM_ID
+            , MEM_NAME
+            , MEM_TEL
+            , JOIN_DATE
+        FROM REACT_MEMBER
+    </select>
+
+    <!--특정 회원 상세 정보 조회-->
+    <select id="selectMember" resultType="MemDTO">
+        SELECT
+            MEM_ID
+            , MEM_NAME
+            , MEM_PW
+            , MEM_TEL
+            , MEM_INTRO
+            , JOIN_DATE
+        FROM REACT_MEMBER
+        WHERE MEM_ID = #{memId}
+    </select>
+
+    <!--새로운 회원 등록-->
+    <insert id="insertMember">
+        INSERT INTO REACT_MEMBER (
+            MEM_ID
+            , MEM_NAME
+            , MEM_PW
+            , MEM_TEL
+            , MEM_INTRO
+        ) VALUES (
+            #{memId}
+            , #{memName}
+            , #{memPw}
+            , #{memTel}
+            , #{memIntro}
+        )
+    </insert>
+
+    <!--특정 회원 삭제-->
+    <delete id="deleteMember">
+        DELETE FROM REACT_MEMBER
+        WHERE MEM_ID = #{memId}
+    </delete>
+
+    <!--특정 회원 정보 수정-->
+    <update id="updateMember">
+        UPDATE REACT_MEMBER
+        SET
+            MEM_NAME = #{memName}
+            ,MEM_PW = #{memPw}
+            ,MEM_TEL = #{memTel}
+            ,MEM_INTRO = #{memIntro}
+        WHERE MEM_ID = #{memId}
+    </update>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

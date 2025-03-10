@@ -1,0 +1,21 @@
+.basic{
+  background-color: blueviolet;
+}
+
+.large{
+  width: 80%;
+}
+
+.my-input{
+  padding: 4px;
+  border: 1px solid blueviolet;
+  border-radius: 6px;
+}
+
+.small{
+  width: 60px;
+}
+
+.large{
+  width: 200px;
+}

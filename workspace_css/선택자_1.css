@@ -1,0 +1,46 @@
+/* 
+CSS는 디자인을 적용한 태그를 잘 선택! -> 선택자
+선택한 태그에 여러 속성을 사용해 디자인 적용!!
+
+선택자 : 태그선택자, id선택자, class 선택자, 자식선택자, 자손선택자, 속성선택자
+*/
+
+/* 태그선택자 */
+/* h3 태그 모두를 선택하겠다 */
+h3{
+  color: violet;
+}
+
+/* ID 선택자 */
+#aaa{
+  color: aqua;
+}
+
+/* Class 선택자 */
+.bbb{
+  color: bisque;
+}
+
+/* 자식 선택자 */
+/* ul 태그의 자식 li 태그를 선택 */
+ul > li{
+  background-color: brown;
+}
+
+/* 자손선택자 */
+body li{
+  color: coral;
+}
+
+/* 속성선택자 */
+input[type="text"]{
+  width: 400px;
+}
+
+input[name="a1"]{
+  width: 100px;
+}
+
+input[value="20"]{
+  height: 200px;
+}

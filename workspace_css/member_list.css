@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+*{
+  font-family: "Montserrat", sans-serif; 
+}
+
+body{
+  background-color: #778899;
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.container{
+  border: 1px solid black;
+  background-color: white;
+  
+  width: 80%;
+}
+
+.intro{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro button{
+  background-color: pink;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 16px;
+  width: 80px;
+  color: white;
+}
+
+.intro > p:nth-child(2){
+  font-weight: bold;
+}
+
+.intro > p:nth-child(3){
+  font-weight: bold;
+}
+
+
+
+.image{
+  display: grid;
+  grid-template-areas: 
+  "a b c d"
+  "e f g h"
+  ;
+  gap: 10px 10px;
+}
+
+.instructos1{
+  grid-area: a;
+}
+
+.instructos2{
+  grid-area: b;
+}
+
+.instructos3{
+  grid-area: c;
+}
+
+.instructos4{
+  grid-area: d;
+}
+
+.instructos5{
+  grid-area: e;
+}
+.instructos6{
+  grid-area: f;
+}
+
+.instructos7{
+  grid-area: g;
+}
+
+.instructos7{
+  grid-area: g;
+}
+

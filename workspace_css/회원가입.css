@@ -1,0 +1,62 @@
+.container{
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 70%;
+  font-size: 0.7rem;
+}
+
+table, tr, td{
+  border: 1px solid #dddddd;
+}
+
+table{
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+tr > td:first-child{
+  background-color: #fbfafa;
+}
+
+td:first-child{
+  padding: 12px;
+  width: 180px;
+}
+
+td:nth-child(2){
+  padding: 6px;
+}
+
+td:first-child > b{
+  color: red;
+}
+
+.default{
+  display: flex;
+  justify-content: space-between;
+}
+
+.default b{
+  color: red;
+}
+
+.addressNum{
+  width: 60px;
+}
+
+.tel input{
+  width: 60px;
+}
+
+.birth input:nth-child(1){
+  width: 100px;
+}
+
+.birth input:nth-child(2){
+  width: 60px;
+}
+
+.birth input:nth-child(3){
+  width: 60px;
+}

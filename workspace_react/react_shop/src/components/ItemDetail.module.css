@@ -1,0 +1,12 @@
+.detail_table{
+  width: 100%;
+  border: 1px solid #cccccc;
+}
+
+.detail_table tr, .detail_table td{
+  border: 1px solid #cccccc;
+}
+
+.detail_table td{
+  padding: 6px;
+}

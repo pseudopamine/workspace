@@ -1,0 +1,33 @@
+.d1{
+  border: 1px solid black;
+  width: 200px;
+  /* 안쪽여백 */
+  padding: 20px; /* 상하좌우 여백 */
+}
+
+.d2{
+  border: 1px solid black;
+  width: 200px;
+  /* 바깥여백 */
+  margin: 20px; /* 상하좌우 여백 */
+}
+
+.d3{
+  border: 1px solid black;
+  width: 200px;
+  padding: 10px 20px 30px 40px; /* 12시부터 시계방향 */
+
+  /* 위 안쪽여백 */
+  padding-top: 10px; /* top, left, right, bottom */
+
+  /* 상하, 좌우 */
+  padding: 10px 20px;
+
+  /* 바깥쪽 여백 정리 */
+  margin: 10px; /* 상하좌우 모두 10px */
+  margin: 10px 20px; /* 상하 10px, 좌우 20px */
+  margin: 10px 20px 30px 40px; /* 12시부터 시계방향 */
+  margin-bottom: 10px;
+  margin-left: 10px;
+
+}

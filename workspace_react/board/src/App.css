@@ -1,0 +1,23 @@
+.container{
+  width: 70%;
+  margin: 50px auto;
+}
+
+.container > h1{
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+.title:hover{
+  cursor: pointer;
+}
