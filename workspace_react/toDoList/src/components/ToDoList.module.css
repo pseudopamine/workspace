@@ -1,0 +1,17 @@
+.container {
+  margin: 0, auto;
+  width: 50%;
+}
+
+.willDoIt {
+  display: flex;
+  align-items: center;
+  padding: 10;
+  gap: 8;
+  border: 1px solid black;
+}
+
+.img {
+  width: 25px;
+  height: 25px;
+}
