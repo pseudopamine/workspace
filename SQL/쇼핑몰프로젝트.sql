@@ -41,4 +41,11 @@ USER_ID VARCHAR(30) PRIMARY KEY
 
 SELECT * FROM SHOP_USER;
 
+#관리자 정보 INSERT
+INSERT INTO shop_user 
+VALUES ('admin', 'qwer1111', '관리자', 'admin@gmail.com', '010-5342-1299', 'ADMIN', 'Y', NOW());
+
+COMMIT;
+
+
 

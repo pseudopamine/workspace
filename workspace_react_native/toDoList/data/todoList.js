@@ -11,9 +11,5 @@ export const data = [
   {
     id : 3,
     text : '오늘 저녁엔 쉬기',
-  },
-  {
-    id : 4,
-    text : '한숨 푹 자기',
   }
 ]
