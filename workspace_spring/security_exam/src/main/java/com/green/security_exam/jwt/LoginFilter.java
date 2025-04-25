@@ -51,7 +51,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     this.jwtUtil = jwtUtil;
 
 
-    setFilterProcessesUrl("/users/login");  //로그인 요청 url 변경
+    setFilterProcessesUrl("/member/login");  //로그인 요청 url 변경
     setUsernameParameter("memEmail");   //변경하지 않으면 아이디는 username으로 전달
     setPasswordParameter("memPw");   //변경하지 않으면 비번은 password로 전달
   }
@@ -78,7 +78,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     //우리가 입력한 아이디와 비밀번호를 데이터베이스에 저장한 정보와 일치하는지 검증하는 로직은
     //AuthenticationManager가 담당하기 때문에 전달받은 아이디와 비밀번호를 AuthenticationManager에 전달해줘야 한다.
-    //이때 아이디와 비밀번호를 그냥 전달하는 것이 아니라 UsernamePasswordAuthenticationToken 객체에 실어 보낸다.
+    //이때 아이디와 비밀번호를 그냥 전달하는 것이 아니라 UsernamePasswordAuthenticationToken 객체에 담아 보낸다.
     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(dto.getMemEmail(), dto.getMemPw(), null);
 
     //아이디와 비번을 담고 있는 authToken객체를 authenticationManager에 전달, authenticationManager는 로그인을 검증하는 기능을 함
@@ -110,8 +110,12 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     GrantedAuthority auth = iterator.next();
     String role = auth.getAuthority();
 
+    //web인지 app인지 확인
+    String clientType = request.getHeader("clientType"); // app -> app, web -> null
+    clientType = clientType == null ? "web" : clientType;
+
     //토큰 생성
-    String accessToken = jwtUtil.createJwt(username, role, (1000 * 60 * 30)); //1000 = 1초, 30분
+    String accessToken = jwtUtil.createJwt(username, role, (1000 * 60 * 30), clientType); //1000 = 1초, 30분
 
     //생성한 토큰을 응답 헤더에 담아 클라이언트에 전달
     response.setHeader("Access-Control-Expose-Headers", "Authorization");

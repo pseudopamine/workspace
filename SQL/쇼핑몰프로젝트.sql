@@ -1,4 +1,4 @@
-# 도서 쇼핑몰 프로젝트 테이블
+team2# 도서 쇼핑몰 프로젝트 테이블
 
 # 도서 카데고리 테이블(소설, 자기계발, 에세이...)
 CREATE TABLE BOOK_CATEGORY (
@@ -26,7 +26,38 @@ CREATE TABLE BOOK (
 	, CATE_CODE INT NOT NULL REFERENCES book_category (CATE_CODE)
 );
 
-SELECT * FROM book;
+# 도서 이미지 정보
+CREATE TABLE BOOK_IMG (
+	IMG_CODE INT PRIMARY KEY AUTO_INCREMENT
+	, ORIGIN_FILE_NAME VARCHAR(100) NOT NULL
+	, ATTACHED_FILE_NAME VARCHAR(100) NOT NULL
+	, IS_MAIN VARCHAR(3) NOT NULL			#대표이미지인지 아닌지 구별하는 컬럼 'Y, "N'
+	, BOOK_CODE INT NOT NULL REFERENCES book (BOOK_CODE) ON DELETE CASCADE
+);
+
+# 한 번에 여러 데이터 INSERT하기
+INSERT INTO BOOK_IMG (
+		IMG_CODE
+		, ORIGIN_FILE_NAME
+		, ATTACHED_FILE_NAME
+		, IS_MAIN
+		, BOOK_CODE
+)
+VALUES (1, 'apple.jpg', 'adfg-yey-sdg.jpg', 'Y', 1),
+		(2, 'apple.jpg', 'adfg-yey-sdg.jpg', 'N', 1);
+
+ROLLBACK;
+
+# 모든 상품에 대해서 첨부된 상품 이미지명, 상품명, 가격을 조회.
+# 메인 이미지만 조회
+
+SELECT ATTACHED_FILE_NAME
+		, BOOK_NAME
+		, BOOK_PRICE
+FROM book_img INNER JOIN book
+ON book_img.BOOK_CODE = book.BOOK_CODE
+WHERE IS_MAIN = 'Y';
+
 
 CREATE TABLE SHOP_USER (
 USER_ID VARCHAR(30) PRIMARY KEY
@@ -39,7 +70,6 @@ USER_ID VARCHAR(30) PRIMARY KEY
 , JOIN_DATE DATETIME DEFAULT SYSDATE()
 );
 
-SELECT * FROM SHOP_USER;
 
 #관리자 정보 INSERT
 INSERT INTO shop_user 
@@ -47,5 +77,23 @@ VALUES ('admin', 'qwer1111', '관리자', 'admin@gmail.com', '010-5342-1299', 'A
 
 COMMIT;
 
+SELECT * FROM book;	
 
+SELECT * FROM shop_user;
+
+SELECT * FROM book_img;
+
+#BOOK 테이블에 저장된 BOOK_CODE 중 가장 큰 수 조회
+SELECT IFNULL(MAX(BOOK_CODE) , 0) + 1 
+FROM book;
+
+#도서번호, 도서명, 도서 가격, 첨부된 상품명
+SELECT BOOK.BOOK_CODE
+		, BOOK_NAME
+		, BOOK_PRICE
+		, ATTACHED_FILE_NAME
+FROM book INNER JOIN BOOK_IMG
+ON book.BOOK_CODE = book_img.BOOK_CODE
+WHERE IS_MAIN = 'Y'
+AND BOOK.book_CODE = 8;
 

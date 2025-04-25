@@ -1,0 +1,98 @@
+security_member
+CREATE TABLE FARMSEYE_ENV(
+    EYE_NUM INT PRIMARY KEY AUTO_INCREMENT
+    , TEMP FLOAT # 온도 측정 데이터
+    , HUMI FLOAT # 습도 측정 데이터
+    , NO2 FLOAT # 질소산화물 측정 데이터 
+    , CO2 FLOAT # 이산화탄소 측정 데이터
+    , NH3 FLOAT # 암모니아 측정 데이터 
+    , H2S FLOAT # 황화수소 측정 데이터
+    , TOLUENE FLOAT # 톨루엔 측정 데이터
+    , ILLUMI FLOAT # 조도 측정 데이터
+    , TIMESTAMP DATETIME DEFAULT SYSDATE()
+    , USER_ID VARCHAR(20) NOT NULL REFERENCES FARMSEYE_USER(USER_ID) ON DELETE CASCADE
+);
+
+
+SELECT * FROM farmseye_env;
+
+DELETE FROM farmseye_env;
+
+DROP TABLE farmseye_env;
+
+COMMIT;
+
+CREATE TABLE FARMSEYE_USER(
+	USER_ID VARCHAR(20) PRIMARY KEY # 회원 ID - PK
+	, USER_PW VARCHAR(100) NOT NULL # 회원 PW
+	, USER_NAME VARCHAR(30) NOT NULL # 회원 이름
+	, USER_AGE INT # 회원 나이 -> NULL허용
+	, USER_TEL VARCHAR(20) NOT NULL UNIQUE # 회원 연락처
+	, USER_EMAIL VARCHAR(30) NOT NULL UNIQUE # 회원 이메일
+	, USER_ADDR VARCHAR(100) NOT NULL # 회원 주소 
+	, REG_DATE DATETIME DEFAULT SYSDATE()
+	, IS_USING VARCHAR(10) DEFAULT 'Y' # 회원상태 : Y - 사용중, N - 탈퇴 
+	, USER_ROLE VARCHAR(10) DEFAULT 'ROLE_USER' # 관리자 : ROLE_ADMIN
+);
+
+SELECT * FROM farmseye_user;
+
+DELETE FROM farmseye_user
+WHERE USER_ID = 'user';
+
+COMMIT;
+
+DROP TABLE farmseye_user;
+
+
+INSERT INTO FARMSEYE_USER (
+	USER_ID
+	, USER_PW
+	, USER_NAME
+	, USER_TEL
+	, USER_EMAIL
+	, USER_ADDR
+	, USER_ROLE
+) VALUES (
+	'admin'
+	, 'Asdf1234'
+	, '김관리'
+	, '01012341234'
+	, 'admin@gmail.com'
+	, '안드로메다'
+	, 'ROLE_ADMIN'
+);
+
+INSERT INTO FARMSEYE_USER (
+	USER_ID
+	, USER_PW
+	, USER_NAME
+	, USER_TEL
+	, USER_EMAIL
+	, USER_ADDR
+	, USER_ROLE
+) VALUES (
+	'user'
+	, 'asdf1234'
+	, '김회원'
+	, '01043214321'
+	, 'user@gmail.com'
+	, '그린아카데미'
+	, 'ROLE_USER'
+);
+
+COMMIT;
+
+# 개체 테이블
+CREATE TABLE FARMSEYE_CHI(
+STOCK_NUM INT PRIMARY KEY AUTO_INCREMENT # PK를 주기 위한 순서 번호
+, INDIVIDUAL_NUM INT  #개체 수
+, WAREHOUSING INT # 입고 수
+, SHIPMENT INT # 출하 수
+, STOCK_WEIGHT FLOAT NOT NULL # 개체(닭) 무게
+, DEATH_STOCK INT #폐사 수
+, REG_DATE DATETIME DEFAULT SYSDATE()
+, USER_ID VARCHAR(20) NOT NULL REFERENCES FARMSEYE_USER(USER_ID) ON DELETE CASCADE
+);
+
+SELECT * FROM FARMSEYE_CHI;

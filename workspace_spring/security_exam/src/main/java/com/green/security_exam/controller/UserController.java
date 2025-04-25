@@ -37,6 +37,7 @@ public class UserController {
     System.out.println("result2 = " + result2);
   };
 
+
   //회원가입
   @PostMapping("/join")
   public ResponseEntity<?> join(@RequestBody MemberDTO memberDTO){

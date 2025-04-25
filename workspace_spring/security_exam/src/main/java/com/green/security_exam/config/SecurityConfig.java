@@ -35,10 +35,11 @@ public class SecurityConfig {
     //AuthenticationManager : spring security에서 실제 로그인 검증을 진행하는 객체
     AuthenticationManager authenticationManager = authConfig.getAuthenticationManager();
 
-    http.cors(Customizer.withDefaults())  //아래 설정한 cors 내용을 사용하겠다.
-        .csrf(csrf -> csrf.disable())
-        .formLogin(form -> form.disable())
-        .httpBasic(basic -> basic.disable())
+    http.cors(Customizer.withDefaults())  //아래 설정한 cors 내용을 사용하겠다
+        .csrf(csrf -> csrf.disable())  //csrf disable : session 방식이 아니기 때문에 불필요
+        .formLogin(form -> form.disable())  //form 로그인 방식 disable
+        .httpBasic(basic -> basic.disable())  //http basic 인증 방식 disable
+            //session을 STATELESS로 지정
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         //인증 및 인가에 대한 접근 설정 부분
         .authorizeHttpRequests(auth ->
