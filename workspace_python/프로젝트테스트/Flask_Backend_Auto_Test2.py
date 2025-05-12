@@ -20,6 +20,8 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
+# 전역 user_id 변수를 스크립트 시작 부분에 정의 (수정됨)
+user_id = "user"
 
 app = Flask(__name__)
 CORS(app)  # 크로스 오리진 요청 허용
@@ -188,6 +190,29 @@ def set_auto_control():
         return jsonify({"success": True})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+def get_automation_rules():
+    """사용자별 자동화 규칙 설정값 조회"""
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        
+        # SQL 쿼리에서 매개변수 제거 (수정됨)
+        sql = """
+            SELECT * FROM FARMSEYE_ENV_MINMAX
+            LIMIT 1
+        """
+        
+        cursor.execute(sql)  # user_id 매개변수 제거 (수정됨)
+        data = cursor.fetchone()
+        return data
+    except Exception as e:
+        print(f"자동화 규칙 조회 오류: {e}")
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
 
 @app.route('/api/rules/check', methods=['GET'])
 def check_rules():
@@ -197,20 +222,97 @@ def check_rules():
         if not data:
             return jsonify({"error": "센서 데이터를 가져올 수 없습니다."}), 500
             
-        # 규칙 정의 (실제로는 데이터베이스나 설정 파일에서 불러올 수 있음)
+        # 데이터베이스에서 자동화 규칙 설정값 조회
+        rules_config = get_automation_rules()
+        if not rules_config:
+            return jsonify({"error": "자동화 규칙 설정을 가져올 수 없습니다."}), 500
+            
+        # 규칙 정의 (데이터베이스에서 가져온 설정 기반)
         rules = [
+            # 온도 관련 규칙
             {
                 "sensor": "TEMP",
                 "condition": ">=",
-                "value": 30,
-                "action": "servo",
-                "actionValue": 20
+                "value": rules_config["MAX_TEM"],
+                "action": "led",
+                "actionValue": 'on'  # 에어컨 켜기
             },
+            {
+                "sensor": "TEMP",
+                "condition": "<=",
+                "value": rules_config["MIN_TEM"],
+                "action": "led",
+                "actionValue": 'off'  # 에어컨 끄기
+            },
+            # 습도 관련 규칙
+            {
+                "sensor": "HUMI",
+                "condition": ">=",
+                "value": rules_config["MAX_HUMI"],
+                "action": "servo",
+                "actionValue": 180  # 루프 최대로 열기
+            },
+            {
+                "sensor": "HUMI",
+                "condition": "<=",
+                "value": rules_config["MIN_HUMI"],
+                "action": "servo",
+                "actionValue": 0  # 루프 닫기
+            },
+            # 유해가스 - 이산화질소 관련 규칙
+            {
+                "sensor": "NO2",
+                "condition": ">=",
+                "value": rules_config["DAN_NO2"],
+                "action": "servo",
+                "actionValue": 180  # 창문 최대로 열기
+            },
+            # 이산화탄소 관련 규칙
+            {
+                "sensor": "CO2",
+                "condition": ">=",
+                "value": rules_config["DAN_CO2"],
+                "action": "servo",
+                "actionValue": 180  # 창문 최대로 열기
+            },
+            # 암모니아 관련 규칙
             {
                 "sensor": "NH3",
                 "condition": ">=",
-                "value": 2,
+                "value": rules_config["BOU_NH3"],
+                "action": "servo",
+                "actionValue": 180  # 창문 최대로 열기
+            },
+            # 황화수소 관련 규칙
+            {
+                "sensor": "H2S",
+                "condition": ">=",
+                "value": rules_config["DAN_H2S"],
+                "action": "servo",
+                "actionValue": 180  # 창문 최대로 열기
+            },
+            # 톨루엔 관련 규칙
+            {
+                "sensor": "TOLUENE",
+                "condition": ">=",
+                "value": rules_config["BOU_TOLUENE"],
+                "action": "servo",
+                "actionValue": 180  # 창문 최대로 열기
+            },
+            # 조도 관련 규칙
+            {
+                "sensor": "ILLUMI",
+                "condition": "<=",
+                "value": rules_config["MIN_ILLUMI"],
                 "action": "led",
+                "actionValue": "on"  # 조명 켜기
+            },
+            {
+                "sensor": "ILLUMI",
+                "condition": ">=",
+                "value": rules_config["MAX_ILLUMI"],
+                "action": "led",
+                "actionValue": "off"  # 조명 끄기
             }
         ]
         
@@ -260,6 +362,159 @@ def check_rules():
         })
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+@app.route('/api/automation/config', methods=['GET'])
+def get_automation_config():
+    """자동화 설정 조회 API"""
+    try:
+        # 전역 변수로 정의된 user_id 사용
+        config = get_automation_rules()
+        if not config:
+            return jsonify({"error": "자동화 설정을 찾을 수 없습니다."}), 404
+            
+        # 필요 없는 필드 제거
+        if 'NUM' in config:
+            del config['NUM']
+            
+        return jsonify(config)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/automation/config', methods=['POST'])
+def update_automation_config():
+    """자동화 설정 업데이트 API"""
+    try:
+        data = request.get_json()
+        
+        # 필수 필드 확인
+        required_fields = [
+            'MIN_TEM', 'MAX_TEM', 'MIN_HUMI', 'MAX_HUMI', 
+            'MIN_ILLUMI', 'MAX_ILLUMI', 'BOU_NO2', 'DAN_NO2',
+            'BOU_CO2', 'DAN_CO2', 'BOU_NH3', 'DAN_NH3',
+            'BOU_H2S', 'DAN_H2S', 'BOU_TOLUENE', 'DAN_TOLUENE'
+        ]
+        
+        for field in required_fields:
+            if field not in data:
+                return jsonify({"error": f"필수 필드 {field}가 누락되었습니다."}), 400
+                
+        # 모든 숫자 필드 형변환 및 유효성 검사
+        for field in required_fields:
+            try:
+                data[field] = float(data[field])
+            except (ValueError, TypeError):
+                return jsonify({"error": f"필드 {field}는 숫자여야 합니다."}), 400
+                
+        # 추가 유효성 검사 (최소값 < 최대값)
+        if data['MIN_TEM'] >= data['MAX_TEM']:
+            return jsonify({"error": "최저 온도는 최고 온도보다 작아야 합니다."}), 400
+            
+        if data['MIN_HUMI'] >= data['MAX_HUMI']:
+            return jsonify({"error": "최저 습도는 최고 습도보다 작아야 합니다."}), 400
+            
+        if data['MIN_ILLUMI'] >= data['MAX_ILLUMI']:
+            return jsonify({"error": "최저 조도는 최고 조도보다 작아야 합니다."}), 400
+            
+        if data['BOU_NO2'] >= data['DAN_NO2']:
+            return jsonify({"error": "경계 이산화질소는 위험 이산화질소보다 작아야 합니다."}), 400
+            
+        if data['BOU_CO2'] >= data['DAN_CO2']:
+            return jsonify({"error": "경계 이산화탄소는 위험 이산화탄소보다 작아야 합니다."}), 400
+            
+        if data['BOU_NH3'] >= data['DAN_NH3']:
+            return jsonify({"error": "경계 암모니아는 위험 암모니아보다 작아야 합니다."}), 400
+            
+        if data['BOU_H2S'] >= data['DAN_H2S']:
+            return jsonify({"error": "경계 황화수소는 위험 황화수소보다 작아야 합니다."}), 400
+            
+        if data['BOU_TOLUENE'] >= data['DAN_TOLUENE']:
+            return jsonify({"error": "경계 톨루엔은 위험 톨루엔보다 작아야 합니다."}), 400
+            
+        # update_automation_rules 함수 호출 시 user_id 매개변수 제거 (수정됨)
+        update_automation_rules(data)
+        return jsonify({"success": True, "message": "자동화 설정이 업데이트되었습니다."})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+# user_id 매개변수 제거 (수정됨)
+def update_automation_rules(data):
+    """사용자별 자동화 규칙 설정값 업데이트"""
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        # 해당 사용자의 설정이 있는지 확인 - user_id 매개변수 제거 (수정됨)
+        check_sql = "SELECT COUNT(*) FROM FARMSEYE_ENV_MINMAX"
+        cursor.execute(check_sql)  # user_id 매개변수 제거 (수정됨)
+        count = cursor.fetchone()[0]
+        
+        if count > 0:
+            # 업데이트 SQL - user_id 참조 제거 (수정됨)
+            sql = """
+                UPDATE FARMSEYE_ENV_MINMAX
+                SET 
+                    MIN_TEM = %s,
+                    MAX_TEM = %s,
+                    MIN_HUMI = %s,
+                    MAX_HUMI = %s,
+                    MIN_ILLUMI = %s,
+                    MAX_ILLUMI = %s,
+                    BOU_NO2 = %s,
+                    DAN_NO2 = %s,
+                    BOU_CO2 = %s,
+                    DAN_CO2 = %s,
+                    BOU_NH3 = %s,
+                    DAN_NH3 = %s,
+                    BOU_H2S = %s,
+                    DAN_H2S = %s,
+                    BOU_TOLUENE = %s,
+                    DAN_TOLUENE = %s
+            """
+            cursor.execute(sql, (
+                data['MIN_TEM'], data['MAX_TEM'],
+                data['MIN_HUMI'], data['MAX_HUMI'],
+                data['MIN_ILLUMI'], data['MAX_ILLUMI'],
+                data['BOU_NO2'], data['DAN_NO2'],
+                data['BOU_CO2'], data['DAN_CO2'],
+                data['BOU_NH3'], data['DAN_NH3'],
+                data['BOU_H2S'], data['DAN_H2S'],
+                data['BOU_TOLUENE'], data['DAN_TOLUENE']
+            ))  # user_id 매개변수 제거 (수정됨)
+        else:
+            # 새 설정 추가 SQL - user_id 참조 제거 (수정됨)
+            sql = """
+                INSERT INTO FARMSEYE_ENV_MINMAX (
+                    MIN_TEM, MAX_TEM, MIN_HUMI, MAX_HUMI,
+                    MIN_ILLUMI, MAX_ILLUMI, BOU_NO2, DAN_NO2,
+                    BOU_CO2, DAN_CO2, BOU_NH3, DAN_NH3,
+                    BOU_H2S, DAN_H2S, BOU_TOLUENE, DAN_TOLUENE,
+                    USER_ID
+                ) VALUES (
+                    %s, %s, %s, %s, %s, %s, %s, %s,
+                    %s, %s, %s, %s, %s, %s, %s, %s, %s
+                )
+            """
+            cursor.execute(sql, (
+                data['MIN_TEM'], data['MAX_TEM'],
+                data['MIN_HUMI'], data['MAX_HUMI'],
+                data['MIN_ILLUMI'], data['MAX_ILLUMI'],
+                data['BOU_NO2'], data['DAN_NO2'],
+                data['BOU_CO2'], data['DAN_CO2'],
+                data['BOU_NH3'], data['DAN_NH3'],
+                data['BOU_H2S'], data['DAN_H2S'],
+                data['BOU_TOLUENE'], data['DAN_TOLUENE'],
+                user_id  # 전역 변수 user_id 사용 (수정됨)
+            ))
+        
+        conn.commit()
+        return True
+    except Exception as e:
+        print(f"자동화 규칙 업데이트 오류: {e}")
+        conn.rollback()
+        raise e
+    finally:
+        cursor.close()
+        conn.close()
 
 def cleanup():
     """프로그램 종료 시 GPIO 정리"""
@@ -292,13 +547,11 @@ def motion_detection():
             if GPIO.input(sensor) == 1:
                 GPIO.output(led_Y, 1)
                 GPIO.output(led_G, 0)
-                print("Motion Detected !")
                 time.sleep(0.5)
 
             elif GPIO.input(sensor) == 0:
                 GPIO.output(led_G, 1)
                 GPIO.output(led_Y, 0)
-                print("Motion Out !")
                 time.sleep(0.5)
     except Exception as e:
         print(f"모션 감지 스레드 오류: {e}")
@@ -581,6 +834,7 @@ if __name__ == '__main__':
         # Flask 실행
         print("Flask 서버 시작...")
         app.run(host='0.0.0.0', port=5000, debug=False)
+        
         
     finally:
         cleanup()

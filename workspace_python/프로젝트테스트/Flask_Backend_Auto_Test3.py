@@ -20,6 +20,8 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 
+# 전역 user_id 변수를 스크립트 시작 부분에 정의 (수정됨)
+user_id = "user"
 
 app = Flask(__name__)
 CORS(app)  # 크로스 오리진 요청 허용
@@ -188,6 +190,29 @@ def set_auto_control():
         return jsonify({"success": True})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+    
+def get_automation_rules():
+    """사용자별 자동화 규칙 설정값 조회"""
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(pymysql.cursors.DictCursor)
+        
+        # SQL 쿼리에서 매개변수 제거 (수정됨)
+        sql = """
+            SELECT * FROM FARMSEYE_ENV_MINMAX
+            LIMIT 1
+        """
+        
+        cursor.execute(sql)  # user_id 매개변수 제거 (수정됨)
+        data = cursor.fetchone()
+        return data
+    except Exception as e:
+        print(f"자동화 규칙 조회 오류: {e}")
+        return None
+    finally:
+        cursor.close()
+        conn.close()
+
 
 @app.route('/api/rules/check', methods=['GET'])
 def check_rules():
@@ -197,20 +222,95 @@ def check_rules():
         if not data:
             return jsonify({"error": "센서 데이터를 가져올 수 없습니다."}), 500
             
+        # 데이터베이스에서 자동화 규칙 설정값 조회
+        rules_config = get_automation_rules()
+        
         # 규칙 정의 (실제로는 데이터베이스나 설정 파일에서 불러올 수 있음)
         rules = [
+            # 온도 관련 규칙
             {
                 "sensor": "TEMP",
                 "condition": ">=",
-                "value": 30,
-                "action": "servo",
-                "actionValue": 20
+                "value": rules_config["MAX_TEM"],
+                "action": "led",
+                "actionValue": 'on'  # 에어컨 켜기
             },
+            {
+                "sensor": "TEMP",
+                "condition": "<=",
+                "value": rules_config["MIN_TEM"],
+                "action": "led",
+                "actionValue": 'off'  # 에어컨 끄기
+            },
+            # 습도 관련 규칙
+            {
+                "sensor": "HUMI",
+                "condition": ">=",
+                "value": rules_config["MAX_HUMI"],
+                "action": "servo",
+                "actionValue": 180  # 루프 최대로 열기
+            },
+            {
+                "sensor": "HUMI",
+                "condition": "<=",
+                "value": rules_config["MIN_HUMI"],
+                "action": "servo",
+                "actionValue": 0  # 루프 닫기
+            },
+            # 유해가스 - 이산화질소 관련 규칙
+            {
+                "sensor": "NO2",
+                "condition": ">=",
+                "value": rules_config["DAN_NO2"],
+                "action": "servo",
+                "actionValue": 180  # 루프 최대로 열기
+            },
+            # 이산화탄소 관련 규칙
+            {
+                "sensor": "CO2",
+                "condition": ">=",
+                "value": rules_config["DAN_CO2"],
+                "action": "servo",
+                "actionValue": 180  # 루프 최대로 열기
+            },
+            # 암모니아 관련 규칙
             {
                 "sensor": "NH3",
                 "condition": ">=",
-                "value": 2,
+                "value": rules_config["DAN_NH3"],
+                "action": "servo",
+                "actionValue": 180  # 루프 최대로 열기
+            },
+            # 황화수소 관련 규칙
+            {
+                "sensor": "H2S",
+                "condition": ">=",
+                "value": rules_config["DAN_H2S"],
+                "action": "servo",
+                "actionValue": 180  # 루프 최대로 열기
+            },
+            # 톨루엔 관련 규칙
+            {
+                "sensor": "TOLUENE",
+                "condition": ">=",
+                "value": rules_config["DAN_TOLUENE"],
+                "action": "servo",
+                "actionValue": 180  # 루프 최대로 열기
+            },
+            # 조도 관련 규칙
+            {
+                "sensor": "ILLUMI",
+                "condition": "<=",
+                "value": rules_config["MIN_ILLUMI"],
                 "action": "led",
+                "actionValue": "on"  # 조명 켜기
+            },
+            {
+                "sensor": "ILLUMI",
+                "condition": ">=",
+                "value": rules_config["MAX_ILLUMI"],
+                "action": "led",
+                "actionValue": "off"  # 조명 끄기
             }
         ]
         

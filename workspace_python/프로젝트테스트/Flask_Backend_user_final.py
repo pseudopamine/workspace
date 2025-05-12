@@ -19,10 +19,56 @@ import spidev
 import pandas as pd
 import numpy as np
 from datetime import datetime
+import jwt
 
 
 app = Flask(__name__)
-CORS(app)  # 크로스 오리진 요청 허용
+CORS(app, supports_credentials=True, origins=['http://localhost:5173', 'http://192.168.30.236'], allow_headers=['Authorization', 'Content-Type'])  # 크로스 오리진 요청 허용
+
+################################user data 받아오기#########################################
+
+
+# 시크릿 키는 스프링 서버와 동일해야 함
+SECRET_KEY = '068c7d168db3007d2a3c45ce5c6026fc2ddb0ce659a7545d09d49a4034668a8baad4e111b129a1c153945c5ba5ac39e7e83c91e8a327fb0b07671afab71bab5c'
+ALGORITHM = 'HS512'  # 스프링 설정과 동일하게
+
+@app.route('/insert', methods=['POST'])
+def insert():
+    headers = request.headers
+    for header, value in headers.items():
+        print(f"{header}: {value}")
+
+        
+    auth_header = request.headers.get('Authorization')
+    print(auth_header)
+    if not auth_header:
+        return jsonify({'error': 'Authorization header missing'}), 401
+
+    try:
+        # "Bearer <token>" 형식에서 token만 추출
+        global user_id
+        token = auth_header.split(' ')[1]
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get('sub')  # JWT 'sub' 클레임에서 user_id 가져오기
+
+        print(payload)
+
+        # 요청 body 데이터 받기
+        login_info = request.get_json()
+
+        # 이후 login_info와 user_id로 필요한 작업 수행
+        # (예: 데이터베이스 insert)
+
+        return jsonify({'message': f'{user_id}님의 데이터가 정상적으로 처리되었습니다.'})
+
+    except jwt.ExpiredSignatureError:
+        return jsonify({'error': 'Token expired'}), 401
+    except jwt.InvalidTokenError:
+        return jsonify({'error': 'Invalid token'}), 401
+
+
+##################################Flask 서버 설정#######################################
+
 
 # 데이터베이스 설정
 DB_CONFIG = {
@@ -74,7 +120,7 @@ def get_db_connection():
     """데이터베이스 연결 반환"""
     return pymysql.connect(**DB_CONFIG)
 
-def get_latest_sensor_data():
+def get_latest_sensor_data(user_id):
     """가장 최근 센서 데이터 조회"""
     try:
         conn = get_db_connection()
@@ -83,11 +129,12 @@ def get_latest_sensor_data():
         sql = """
             SELECT TEMP, HUMI, NO2, CO2, NH3, H2S, TOLUENE, ILLUMI, TIMESTAMP
             FROM FARMSEYE_ENV
+            WHERE USER_ID = %s
             ORDER BY TIMESTAMP DESC
             LIMIT 1
         """
         
-        cursor.execute(sql)
+        cursor.execute(sql, (user_id))
         data = cursor.fetchone()
         return data
     except Exception as e:
@@ -292,13 +339,11 @@ def motion_detection():
             if GPIO.input(sensor) == 1:
                 GPIO.output(led_Y, 1)
                 GPIO.output(led_G, 0)
-                print("Motion Detected !")
                 time.sleep(0.5)
 
             elif GPIO.input(sensor) == 0:
                 GPIO.output(led_G, 1)
                 GPIO.output(led_Y, 0)
-                print("Motion Out !")
                 time.sleep(0.5)
     except Exception as e:
         print(f"모션 감지 스레드 오류: {e}")
@@ -383,6 +428,8 @@ def start_camera_stream():
         server.serve_forever()
     finally:
         picam2.stop_recording()
+        
+
 
 ################################DB 데이터 적재#########################################
 
@@ -471,7 +518,6 @@ def getNowData():
         print(f"데이터 수집 중 오류 발생: {e}")
         return None
 
-user_id = "user"
 
 # 데이터 DB 저장 함수
 def insertData(df, user_id):
@@ -581,6 +627,7 @@ if __name__ == '__main__':
         # Flask 실행
         print("Flask 서버 시작...")
         app.run(host='0.0.0.0', port=5000, debug=False)
+        
         
     finally:
         cleanup()
